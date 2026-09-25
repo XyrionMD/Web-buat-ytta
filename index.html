@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Princess Sulis 💖</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --pink1:#ff5e8a; --pink2:#ff8fab; --pink3:#ffc2d1;
+    --purple1:#7b2ff7; --dark:#2b0a2e;
+  }
+  body{
+    font-family:'Poppins',sans-serif;
+    background: radial-gradient(ellipse at top, #4a154b 0%, #2b0a2e 45%, #16041a 100%);
+    color:#fff; overflow-x:hidden; min-height:100vh;
+  }
+  canvas#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+  .hearts-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .float-heart{position:absolute;bottom:-50px;animation:floatUp linear infinite;opacity:.7;filter:drop-shadow(0 0 8px #ff5e8a)}
+  @keyframes floatUp{to{transform:translateY(-110vh) rotate(20deg)}}
+
+  /* SPLASH */
+  #splash{
+    position:fixed;inset:0;z-index:100;
+    background: radial-gradient(circle at center, #ff5e8a33, #2b0a2e 70%),
+                url('') center/cover;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:24px;transition:opacity 1s, visibility 1s;
+  }
+  #splash.hide{opacity:0;visibility:hidden}
+  .crown{font-size:64px;animation:bounce 2s infinite}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+  .splash-small{letter-spacing:5px;text-transform:uppercase;font-size:13px;color:var(--pink3);margin-top:10px}
+  .splash-title{
+    font-family:'Great Vibes',cursive;font-size:clamp(42px,8vw,86px);
+    background:linear-gradient(90deg,#fff,#ffc2d1,#ff5e8a,#fff);
+    background-size:300% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shine 4s linear infinite;line-height:1.2;margin:10px 0;
+  }
+  @keyframes shine{to{background-position:300% center}}
+  #typing{font-size:clamp(15px,3vw,20px);min-height:60px;color:#ffe5ec;font-weight:300;max-width:600px}
+  .btn-main{
+    margin-top:25px;padding:16px 42px;border:none;border-radius:50px;cursor:pointer;
+    font-size:18px;font-weight:700;color:#fff;
+    background:linear-gradient(135deg,var(--pink1),var(--purple1));
+    box-shadow:0 10px 30px #ff5e8a88, inset 0 1px 0 #ffffff66;
+    transition:.3s;
+  }
+  .btn-main:hover{transform:scale(1.07);box-shadow:0 15px 40px #ff5e8acc}
+
+  /* LAYOUT */
+  .wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:20px 18px 100px;display:none}
+  .wrap.show{display:block;animation:fadeIn 1.2s}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+  header{text-align:center;padding:50px 10px 20px}
+  header h1{font-family:'Great Vibes',cursive;font-size:clamp(38px,7vw,68px);color:#ffb3c6}
+  header p{color:#ffd6e0;margin-top:8px}
+  .date-badge{display:inline-block;margin-top:12px;padding:8px 20px;border-radius:30px;background:#ffffff14;border:1px solid #ffffff2a;backdrop-filter:blur(10px);font-size:14px}
+
+  .card{
+    background:linear-gradient(160deg,#ffffff18,#ffffff08);
+    border:1px solid #ffffff22;border-radius:24px;padding:28px 24px;margin:22px 0;
+    backdrop-filter:blur(14px);box-shadow:0 15px 40px #00000055;
+  }
+  .card h2{font-family:'Great Vibes',cursive;font-size:38px;color:#ff8fab;margin-bottom:10px}
+  .card p{line-height:1.8;color:#ffe9ef;font-weight:300}
+
+  /* envelope */
+  .envelope-box{text-align:center}
+  .envelope{font-size:90px;cursor:pointer;transition:.3s;display:inline-block}
+  .envelope:hover{transform:scale(1.15) rotate(-5deg)}
+  #letter{display:none;margin-top:18px;text-align:left;background:linear-gradient(160deg,#fff0f6,#ffd6e5);color:#c9184a;border-radius:16px;padding:22px;line-height:1.9;box-shadow:inset 0 0 0 2px #ff5e8a, 0 0 25px #ff5e8a66}
+  #letter.show{display:block;animation:fadeIn .8s}
+  #letter p{color:#c9184a !important;font-weight:500;font-size:17px;text-shadow:none}
+  #letter b{color:#ff0f7b !important}
+  #letter #suratText{color:#d0006f !important;font-weight:600}
+  #letter .sign{font-family:'Great Vibes',cursive;font-size:32px;margin-top:10px;color:#ff0f7b !important}
+
+  /* reasons */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:16px}
+  .reason{background:#ffffff10;border:1px solid #ffffff1f;border-radius:18px;padding:20px;text-align:center;cursor:pointer;transition:.3s;min-height:150px;display:flex;flex-direction:column;justify-content:center}
+  .reason:hover{background:#ff5e8a33;transform:translateY(-6px)}
+  .reason span{font-size:38px}
+  .reason b{margin:8px 0 4px}
+  .reason small{color:#ffd0dc;font-weight:300}
+  .reason.locked small{filter:blur(0)}
+  .reason .secret{display:none}
+  .reason.open .secret{display:block}
+  .reason.open .cover{display:none}
+
+  /* love meter */
+  .meter-wrap{text-align:center}
+  #meterBtn{font-size:20px;padding:15px 30px;border-radius:50px;border:none;background:#ff4d6d;color:#fff;font-weight:700;cursor:pointer;box-shadow:0 8px 25px #ff4d6d88;transition:.2s}
+  #meterBtn:active{transform:scale(.93)}
+  .bar{height:22px;background:#ffffff1a;border-radius:20px;margin:20px 0;overflow:hidden;border:1px solid #fff3}
+  #barFill{height:100%;width:0%;background:linear-gradient(90deg,#ff8fab,#ff4d6d,#7b2ff7);border-radius:20px;transition:width .3s}
+  #meterText{font-size:22px;min-height:30px;font-weight:600;color:#ffc2d1}
+
+  /* game */
+  #gameArea{position:relative;height:320px;background:#00000035;border-radius:18px;overflow:hidden;border:1px dashed #ff8fab88;margin-top:14px;cursor:crosshair}
+  .fall-heart{position:absolute;font-size:28px;cursor:pointer;user-select:none;animation:fall linear forwards}
+  @keyframes fall{to{transform:translateY(340px)}}
+  .game-info{display:flex;justify-content:space-between;margin-top:12px;font-weight:600}
+
+  /* quiz */
+  .quiz-q{margin:14px 0}
+  .quiz-q b{display:block;margin-bottom:8px}
+  .quiz-q button{display:block;width:100%;margin:6px 0;padding:12px;border-radius:12px;border:1px solid #ffffff2c;background:#ffffff0d;color:#fff;cursor:pointer;transition:.2s;text-align:left}
+  .quiz-q button:hover{background:#ff5e8a44}
+  .quiz-q button.correct{background:#2ecc71 !important;border-color:#2ecc71}
+  .quiz-q button.wrong{background:#e74c3c !important;border-color:#e74c3c}
+
+  /* finale */
+  .finale{text-align:center;padding:40px 20px}
+  .finale h2{font-size:clamp(30px,6vw,52px);font-family:'Great Vibes',cursive;color:#fff}
+  .big-heart{font-size:100px;animation:beat 1s infinite;cursor:pointer}
+  @keyframes beat{0%,100%{transform:scale(1)}25%{transform:scale(1.2)}40%{transform:scale(1)}}
+  .btn-row{display:flex;gap:14px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+  #btnMau{padding:16px 50px;font-size:20px;border:none;border-radius:50px;background:linear-gradient(135deg,#ff4d6d,#7b2ff7);color:#fff;font-weight:800;cursor:pointer;box-shadow:0 10px 30px #ff4d6d99}
+  #btnPikir{padding:16px 30px;border-radius:50px;background:#ffffff1a;border:1px solid #fff4;color:#fff;cursor:pointer;position:relative}
+  #finalMsg{margin-top:22px;font-size:20px;line-height:1.7;display:none}
+
+  /* music */
+  #musicBtn{position:fixed;bottom:20px;right:20px;z-index:50;width:55px;height:55px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--pink1),var(--purple1));font-size:24px;cursor:pointer;box-shadow:0 8px 25px #0008}
+  footer{text-align:center;color:#ffffff88;font-size:13px;padding:30px}
+  @media(max-width:600px){.card{padding:20px 16px}}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+<div class="hearts-bg" id="heartsBg"></div>
+
+<!-- SPLASH / HALAMAN UTAMA -->
+<div id="splash">
+  <div class="crown">👑</div>
+  <div class="splash-small">✨ Sebuah kejutan kecil untukmu ✨</div>
+  <div class="splash-title">Selamat Datang,<br>Princess Sulis 💖</div>
+  <p id="typing"></p>
+  <button class="btn-main" onclick="masuk()">💌 Klik untuk Masuk 💌</button>
+  <p style="margin-top:14px;font-size:13px;color:#ffffff88">Siapkan hatimu... ada sesuatu yang spesial menantimu</p>
+</div>
+
+<div class="wrap" id="main">
+  <header>
+    <div style="font-size:50px">🌙✨💖</div>
+    <h1>Hai Princess Sulis...</h1>
+    <p>Website ini aku buat khusus untuk kamu, dengan segenap hati 🥺👉👈</p>
+    <div class="date-badge">📅 <span id="today"></span> • Hari yang indah karena ada kamu</div>
+  </header>
+
+  <!-- 1. Surat -->
+  <div class="card envelope-box">
+    <h2>💌 Surat Untukmu</h2>
+    <p>Klik amplop di bawah ini untuk membuka isi hatiku...</p>
+    <div class="envelope" onclick="bukaSurat()" id="env">💌</div>
+    <div id="letter">
+      <p><b>Untuk Sulis yang paling cantik,</b></p>
+      <p id="suratText"></p>
+      <p class="sign">— Dari seseorang yang diam-diam mengagumimu 🤍</p>
+    </div>
+  </div>
+
+  <!-- 2. Alasan -->
+  <div class="card">
+    <h2>🌹 Kenapa Kamu Spesial?</h2>
+    <p>Klik setiap kartu untuk membuka alasannya...</p>
+    <div class="grid">
+      <div class="reason" onclick="this.classList.toggle('open')"><div class="cover"><span>😊</span><br><b>Senyummu</b><br><small>Klik untuk buka</small></div><div class="secret"><span>💖</span><br><b>Senyummu</b><br><small>Senyummu itu menenangkan. Sekali kamu senyum, dunia rasanya ikut bahagia.</small></div></div>
+      <div class="reason" onclick="this.classList.toggle('open')"><div class="cover"><span>🌙</span><br><b>Baik Hatimu</b><br><small>Klik untuk buka</small></div><div class="secret"><span>✨</span><br><b>Baik Hatimu</b><br><small>Kamu selalu ramah ke semua orang. Itu yang bikin aku kagum banget.</small></div></div>
+      <div class="reason" onclick="this.classList.toggle('open')"><div class="cover"><span>⭐</span><br><b>Semangatmu</b><br><small>Klik untuk buka</small></div><div class="secret"><span>🔥</span><br><b>Semangatmu</b><br><small>Kamu kuat dan tidak mudah menyerah. Aku ingin selalu mendukungmu.</small></div></div>
+      <div class="reason" onclick="this.classList.toggle('open')"><div class="cover"><span>🦋</span><br><b>Keunikanmu</b><br><small>Klik untuk buka</small></div><div class="secret"><span>💎</span><br><b>Keunikanmu</b><br><small>Kamu beda dari yang lain. Cantik, lucu, dan apa adanya. Perfect!</small></div></div>
+    </div>
+  </div>
+
+  <!-- 3. Love Meter -->
+  <div class="card meter-wrap">
+    <h2>💘 Love Meter Sulis</h2>
+    <p>Pencet tombol LOVE secepatnya selama 5 detik untuk mengukur sayangku!</p>
+    <div class="bar"><div id="barFill"></div></div>
+    <div id="meterText">Belum diukur... 🥺</div>
+    <br>
+    <button id="meterBtn" onclick="pencetLove()">💖 LOVE 💖 (<span id="count">0</span>)</button>
+    <p style="font-size:13px;margin-top:10px;color:#ffffff99" id="meterHint">Klik tombol di atas untuk mulai!</p>
+  </div>
+
+  <!-- 4. Game -->
+  <div class="card">
+    <h2>🎮 Tangkap Hatiku!</h2>
+    <p>Tangkap hati yang jatuh sebanyak-banyaknya dalam 20 detik! Kalau dapat 15, kamu dapat hadiah spesial 🎁</p>
+    <div style="text-align:center;margin-top:10px"><button class="btn-main" style="margin:0;padding:12px 30px;font-size:16px" onclick="mulaiGame()">▶ Mulai Game</button></div>
+    <div id="gameArea"></div>
+    <div class="game-info"><span>❤️ Skor: <span id="score">0</span></span><span>⏳ Waktu: <span id="time">20</span>s</span></div>
+    <p id="gameMsg" style="text-align:center;margin-top:10px;color:#ffeb3b;font-weight:600"></p>
+  </div>
+
+  <!-- 5. Quiz -->
+  <div class="card">
+    <h2>💭 Quiz Kecil Untuk Sulis</h2>
+    <p>Jawab dengan jujur ya, Princess... 😳</p>
+    <div class="quiz-q" id="q1"><b>1. Aku bikin web ini buat siapa?</b>
+      <button onclick="quiz(this,true)">Sulis, Princess tercantik 💖</button>
+      <button onclick="quiz(this,false)">Tetangga sebelah</button>
+      <button onclick="quiz(this,false)">Tidak tahu</button>
+    </div>
+    <div class="quiz-q" id="q2"><b>2. Menurut kamu, kamu itu...?</b>
+      <button onclick="quiz(this,false)">Biasa aja</button>
+      <button onclick="quiz(this,true)">Spesial dan berharga ✨</button>
+      <button onclick="quiz(this,false)">Capek</button>
+    </div>
+    <div class="quiz-q" id="q3"><b>3. Mau nggak jadi alasan aku semangat tiap hari?</b>
+      <button onclick="quiz(this,true)">Mau 🥰</button>
+      <button onclick="quiz(this,true)">Mau banget 💍</button>
+      <button onclick="quiz(this,false)">Pikir-pikir dulu 😅</button>
+    </div>
+    <p id="quizMsg" style="margin-top:10px;font-weight:600;color:#ffc2d1"></p>
+  </div>
+
+  <!-- 6. Finale -->
+  <div class="card finale">
+    <div class="big-heart" onclick="hujanHati()">💖</div>
+    <h2>Sulis, Maukah Kamu...</h2>
+    <p>...memberiku kesempatan untuk lebih dekat dan membahagiakanmu?</p>
+    <div class="btn-row">
+      <button id="btnMau" onclick="jawabMau()">MAU 🥰💍</button>
+      <button id="btnPikir" onmouseover="kabur(this)" onclick="kabur(this)">Pikir-pikir dulu</button>
+    </div>
+    <div id="finalMsg"></div>
+  </div>
+
+  <footer>Dibuat dengan 💖 sepenuh hati • Hanya untuk Sulis • 2026</footer>
+</div>
+
+<button id="musicBtn" onclick="toggleMusic()" title="Musik">🎵</button>
+<audio id="musik" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2023/10/30/audio_2c8a9c7f7e.mp3?filename=romantic-piano-197005.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Tanggal
+document.getElementById('today').textContent = new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+// Bintang
+const c = document.getElementById('stars'), ctx = c.getContext('2d');
+let stars=[];
+function initStars(){c.width=innerWidth;c.height=innerHeight;stars=Array.from({length:150},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+0.3,s:Math.random()*0.8+0.2}))}
+initStars();addEventListener('resize',initStars);
+(function anim(){ctx.clearRect(0,0,c.width,c.height);stars.forEach(st=>{ctx.globalAlpha=0.4+Math.sin(Date.now()/900+st.x)*0.4;ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,7);ctx.fill();st.y+=st.s;if(st.y>c.height)st.y=0});requestAnimationFrame(anim)})();
+
+// Hati melayang
+const bg=document.getElementById('heartsBg');
+setInterval(()=>{if(document.hidden)return;const h=document.createElement('div');h.className='float-heart';h.textContent=['💖','💕','💗','🌸','✨'][Math.floor(Math.random()*5)];h.style.left=Math.random()*100+'vw';h.style.fontSize=(14+Math.random()*26)+'px';h.style.animationDuration=(4+Math.random()*5)+'s';bg.appendChild(h);setTimeout(()=>h.remove(),9000)},700);
+
+// Typing splash
+const teksSplash="Hai Sulis... Aku punya sesuatu yang spesial buat kamu. Website kecil ini aku buat dengan hati, karena kamu pantas mendapatkan hal-hal manis. Siap? Yuk masuk... 💕";
+let ti=0;
+(function type(){if(ti<=teksSplash.length){document.getElementById('typing').textContent=teksSplash.slice(0,ti++);setTimeout(type,35)}})();
+
+function masuk(){
+  document.getElementById('splash').classList.add('hide');
+  document.getElementById('main').classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+  hujanHati();
+  playMusic();
+}
+
+// Surat typewriter
+let suratDibuka=false;
+const isiSurat="Halo Sulis... Jujur, aku gugup nulis ini. Setiap kali kamu tersenyum, hariku langsung berubah jadi lebih cerah. Aku tidak tahu sejak kapan, tapi kehadiranmu selalu aku tunggu. Kamu itu seperti bintang — jauh tapi selalu bersinar dan bikin aku tenang. Aku tidak minta yang muluk-muluk. Aku cuma ingin kamu tahu: kamu berharga, kamu cantik luar dalam, dan kamu pantas bahagia. Kalau boleh, izinkan aku jadi salah satu alasan bahagiamu. Tetaplah jadi Sulis yang aku kagumi ya... Princess-ku 👑💖";
+function bukaSurat(){
+  document.getElementById('env').textContent='💌✨';
+  const box=document.getElementById('letter');box.classList.add('show');
+  if(suratDibuka)return;suratDibuka=true;
+  let i=0;const el=document.getElementById('suratText');el.textContent='';
+  (function ketik(){if(i<=isiSurat.length){el.textContent=isiSurat.slice(0,i++);setTimeout(ketik,28)}})();
+}
+
+// Love meter
+let loveCount=0, loveActive=false, loveTimer=null;
+function pencetLove(){
+  const txt=document.getElementById('meterText'),fill=document.getElementById('barFill');
+  if(!loveActive){loveActive=true;loveCount=0;document.getElementById('count').textContent='0';fill.style.width='0%';document.getElementById('meterHint').textContent='Cepat! Pencet terus!! 🔥';
+    loveTimer=setTimeout(()=>{
+      loveActive=false;
+      let persen=Math.min(100, loveCount*4);
+      fill.style.width=persen+'%';
+      if(loveCount>=30) txt.textContent=`💥 ${loveCount}x! Sayangku ke kamu MELEDAK 100%! 💍`;
+      else if(loveCount>=15) txt.textContent=`😍 ${loveCount}x! Sayangku ${persen}% — Besar banget!`;
+      else txt.textContent=`🥺 ${loveCount}x... Coba pencet lebih cepat, sayangku padahal 100%!`;
+      document.getElementById('meterHint').textContent='Klik lagi untuk ulangi';
+      hujanHati();
+    },5000);
+  } else {
+    loveCount++;document.getElementById('count').textContent=loveCount;
+    fill.style.width=Math.min(100,loveCount*4)+'%';
+  }
+}
+
+// Game tangkap hati
+let skor=0, sisa=20, gameInt=null, spawnInt=null;
+function mulaiGame(){
+  const area=document.getElementById('gameArea');area.innerHTML='';
+  skor=0;sisa=20;document.getElementById('score').textContent='0';document.getElementById('time').textContent='20';
+  document.getElementById('gameMsg').textContent='';
+  clearInterval(gameInt);clearInterval(spawnInt);
+  spawnInt=setInterval(()=>{
+    const h=document.createElement('div');h.className='fall-heart';
+    h.textContent=['❤️','💖','💕','💗'][Math.floor(Math.random()*4)];
+    h.style.left=Math.random()*90+'%';h.style.top='-40px';
+    h.style.animationDuration=(1.5+Math.random()*1.5)+'s';
+    h.onclick=()=>{skor++;document.getElementById('score').textContent=skor;h.textContent='✨';setTimeout(()=>h.remove(),150)};
+    area.appendChild(h);setTimeout(()=>h.remove(),3200);
+  },400);
+  gameInt=setInterval(()=>{
+    sisa--;document.getElementById('time').textContent=sisa;
+    if(sisa<=0){clearInterval(gameInt);clearInterval(spawnInt);
+      const msg=document.getElementById('gameMsg');
+      if(skor>=15){msg.textContent=`🎉 WOW! Skor ${skor}! Kamu hebat! Hadiahmu: Pelukan virtual terbesar 🤗💖`;hujanHati();hujanHati()}
+      else if(skor>=8)msg.textContent=`💪 Skor ${skor}! Lumayan! Coba lagi biar dapat hadiah 🎁`;
+      else msg.textContent=`🥺 Skor ${skor}. Hati aku susah ditangkap ya? Coba lagi dong!`;
+    }
+  },1000);
+}
+
+// Quiz
+let benar=0, jawab=0;
+function quiz(btn, ok){
+  const parent=btn.parentElement;
+  if(parent.dataset.done)return;parent.dataset.done='1';jawab++;
+  if(ok){btn.classList.add('correct');benar++}else{btn.classList.add('wrong');[...parent.querySelectorAll('button')].forEach(()=>{});}
+  const msg=document.getElementById('quizMsg');
+  if(jawab>=3){
+    if(benar>=2)msg.textContent=`🎉 Yeay! Kamu benar ${benar}/3! Kamu memang pengertian 💖`;
+    else msg.textContent=`😅 Kamu benar ${benar}/3, tapi tetap yang paling spesial!`;
+    hujanHati();
+  }
+}
+
+// Finale kabur
+function kabur(btn){
+  const x=(Math.random()-0.5)*200, y=(Math.random()-0.5)*120;
+  btn.style.transform=`translate(${x}px,${y}px)`;
+}
+function jawabMau(){
+  const m=document.getElementById('finalMsg');m.style.display='block';
+  m.innerHTML="YEEEEY!! 🥳💖💖<br><br>Sulis resmi jadi Princess kesayanganku! 👑<br>Aku janji bakal selalu bikin kamu tersenyum.<br>Ditunggu chat dariku ya... I like you, Sulis! 😳💌<br><br>📸 Screenshot halaman ini dan kirim ke aku ya!";
+  for(let i=0;i<5;i++)setTimeout(hujanHati,i*400);
+  kembangApi();
+}
+function hujanHati(){
+  for(let i=0;i<30;i++){
+    setTimeout(()=>{
+      const h=document.createElement('div');h.textContent=['💖','💕','🌸','💗','✨','🦋'][Math.floor(Math.random()*6)];
+      h.style.cssText=`position:fixed;top:-40px;left:${Math.random()*100}vw;font-size:${18+Math.random()*28}px;z-index:99;pointer-events:none;transition:transform 2.5s linear, opacity 2.5s`;
+      document.body.appendChild(h);
+      requestAnimationFrame(()=>{h.style.transform=`translateY(${innerHeight+100}px) rotate(${Math.random()*360}deg)`;h.style.opacity='0'});
+      setTimeout(()=>h.remove(),2600);
+    },i*50);
+  }
+}
+function kembangApi(){
+  const em=['🎆','🎇','✨','💖','🌟'];
+  for(let i=0;i<20;i++)setTimeout(()=>{
+    const s=document.createElement('div');s.textContent=em[Math.floor(Math.random()*em.length)];
+    s.style.cssText=`position:fixed;left:${Math.random()*90}vw;top:${Math.random()*60}vh;font-size:30px;z-index:99;pointer-events:none;animation:beat .6s 3`;
+    document.body.appendChild(s);setTimeout(()=>s.remove(),2000);
+  },i*150);
+}
+
+// Musik
+let playing=false;
+function playMusic(){const a=document.getElementById('musik');a.volume=0.4;a.play().catch(()=>{});playing=true;document.getElementById('musicBtn').textContent='🎶'}
+function toggleMusic(){const a=document.getElementById('musik');if(playing){a.pause();playing=false;document.getElementById('musicBtn').textContent='🎵'}else{playMusic()}}
+</script>
+</body>
+</html>
